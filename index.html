@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AudioTrace | Audio Forensics Mini Project</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">波</div>
+      <div>
+        <div class="brand-name">AudioTrace</div>
+        <div class="brand-subtitle">DIGITAL AUDIO FORENSICS</div>
+      </div>
+    </div>
+    <div class="header-right"><span class="status-dot"></span> Local analysis <span class="header-divider"></span><span class="version">MINI PROJECT</span></div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="side-label">WORKSPACE</div>
+      <a class="nav-item active" href="#overview"><span>▦</span> Overview</a>
+      <a class="nav-item" href="#evidence"><span>◉</span> Evidence analysis</a>
+      <div class="sidebar-note">
+        <div class="note-icon">⌁</div>
+        <strong>Evidence stays on this device</strong>
+        <p>Audio is processed in your browser and is not uploaded to a server.</p>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="avatar">AF</div>
+        <div><strong>Investigator</strong><small>Local workspace</small></div>
+      </div>
+    </aside>
+
+    <section class="content" id="overview">
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">INVESTIGATION WORKSPACE / OVERVIEW</div>
+          <h1>Audio evidence analysis</h1>
+          <p class="muted">Inspect audio properties, verify file integrity, and export a basic report.</p>
+        </div>
+        <div class="case-pill"><span class="status-dot"></span> New examination</div>
+      </div>
+
+      <section class="upload-panel" id="evidence">
+        <div class="upload-art"><div class="upload-wave">▁ ▃ ▅ ▂ ▆ ▃ ▇ ▂ ▄ ▆ ▃</div><div class="upload-circle">↑</div></div>
+        <h2>Import audio evidence</h2>
+        <p class="muted">Choose an audio file from your device to begin analysis.</p>
+        <label class="file-button" for="audioFile">Choose audio file</label>
+        <input id="audioFile" type="file" accept="audio/*,.wav,.mp3,.flac,.ogg,.m4a" />
+        <div class="file-hint">WAV, MP3, FLAC, OGG, M4A · File remains in your browser</div>
+        <div id="fileError" class="error" role="alert"></div>
+      </section>
+
+      <section id="results" class="results hidden">
+        <div class="section-title-row"><div><div class="eyebrow">EXAMINATION RESULTS</div><h2 id="fileNameHeading">Audio file</h2></div><button id="resetBtn" class="button secondary">Choose another file</button></div>
+        <div class="metric-grid">
+          <article class="metric-card"><div class="metric-label">DURATION</div><div class="metric-value" id="durationValue">—</div><div class="metric-foot">Audio length</div></article>
+          <article class="metric-card"><div class="metric-label">FILE SIZE</div><div class="metric-value" id="sizeValue">—</div><div class="metric-foot">Original file size</div></article>
+          <article class="metric-card"><div class="metric-label">SAMPLE RATE</div><div class="metric-value" id="sampleRateValue">—</div><div class="metric-foot">Decoded audio</div></article>
+          <article class="metric-card"><div class="metric-label">CHANNELS</div><div class="metric-value" id="channelsValue">—</div><div class="metric-foot">Audio channels</div></article>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading"><div><h3>Audio playback</h3><p class="muted">Listen to the selected evidence file.</p></div><span class="small-tag">PLAYER</span></div>
+          <audio id="audioPlayer" controls></audio>
+          <div class="wave-label"><span>WAVEFORM PREVIEW</span><span id="waveformHint">Amplitude over time</span></div>
+          <canvas id="waveform" height="150" aria-label="Audio waveform preview"></canvas>
+        </div>
+
+        <div class="two-column">
+          <div class="panel">
+            <div class="panel-heading"><div><h3>Evidence integrity</h3><p class="muted">SHA-256 digest of the selected file.</p></div><span class="integrity-icon">✓</span></div>
+            <div class="hash-label">SHA-256</div>
+            <div id="hashValue" class="hash-value">Calculating…</div>
+            <button id="copyHashBtn" class="button secondary compact">Copy hash</button>
+            <p class="micro-note">The hash can help compare file contents later. It does not prove that the recording is authentic or unedited.</p>
+          </div>
+          <div class="panel">
+            <div class="panel-heading"><div><h3>File information</h3><p class="muted">Basic properties of the selected file.</p></div></div>
+            <dl class="details-list">
+              <div><dt>File name</dt><dd id="detailName">—</dd></div>
+              <div><dt>File type</dt><dd id="detailType">—</dd></div>
+              <div><dt>Last modified</dt><dd id="detailModified">—</dd></div>
+              <div><dt>Analysis time</dt><dd id="detailAnalyzed">—</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-heading"><div><h3>Basic analysis observations</h3><p class="muted">Simple signal checks to guide further listening.</p></div><span class="small-tag">INDICATORS ONLY</span></div>
+          <div id="observations" class="observations"></div>
+          <p class="micro-note">These automated checks are not proof of tampering. Silence, clipping, or abrupt changes can occur naturally in legitimate recordings.</p>
+        </div>
+
+        <div class="report-bar">
+          <div><strong>Ready to document this examination?</strong><p class="muted">Export a summary of the file properties, hash, and observations.</p></div>
+          <button id="downloadReportBtn" class="button primary">↓ Download report (.txt)</button>
+        </div>
+      </section>
+      <footer>AudioTrace · Educational mini project · Browser-based analysis</footer>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
